@@ -218,24 +218,4 @@ Tuan tuan can kiem tra:
 - API response times
 - User feedback
 
-LIEN HE VA HO TRO
 
-Tham khao PLAN_CHI_TIET.md va ARCHITECTURE.md de hieu rõ toan bo he thong.
-
-GIAI PHAP VAN DE THUONG GAP
-
-Q: Lam sao de reset database?
-A: Xoa database va chay lai script: DROP DATABASE KhachSan; sau do chay database-init.sql
-
-Q: Lam sao de doi port?
-A: Sua trong application.yml, key: server.port
-
-Q: Lam sao de them endpoint moi?
-A: Tao controller va service, them route trong application.yml neu can
-
-Q: Lam sao de test authentication?
-A: Dang nhap trc, lay JWT token tu response, them vao Authorization header: Bearer {token}
-
----
-
-Danh dau: Dieu chinh theo tinh trang thuc te cua du an va feedback tu user.
