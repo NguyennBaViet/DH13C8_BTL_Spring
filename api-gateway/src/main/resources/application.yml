@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: api-gateway
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mysql://localhost:3306/KhachSan
+    username: root
+    password: root
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://localhost:8001
+          predicates:
+            - Path=/api/auth/**,/api/users/**
+
+        - id: hotel-service
+          uri: http://localhost:8002
+          predicates:
+            - Path=/api/hotels/**,/api/rooms/**,/api/amenities/**
+
+        - id: booking-service
+          uri: http://localhost:8003
+          predicates:
+            - Path=/api/bookings/**,/api/availability/**
+
+        - id: payment-service
+          uri: http://localhost:8004
+          predicates:
+            - Path=/api/payments/**,/api/invoices/**
+
+        - id: review-service
+          uri: http://localhost:8005
+          predicates:
+            - Path=/api/reviews/**,/api/ratings/**
+
+server:
+  port: 8000
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    dh13c8: DEBUG
