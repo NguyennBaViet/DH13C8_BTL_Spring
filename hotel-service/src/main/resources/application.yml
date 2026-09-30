@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: hotel-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/KhachSan
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 8002
+
+logging:
+  level:
+    root: INFO
+    dh13c8: DEBUG
