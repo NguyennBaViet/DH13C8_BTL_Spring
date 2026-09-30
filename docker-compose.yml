@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: khachsan-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: KhachSan
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - khachsan-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: khachsan-api-gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+      hotel-service:
+        condition: service_started
+      booking-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+      review-service:
+        condition: service_started
+    networks:
+      - khachsan-network
+
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    container_name: khachsan-user-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/KhachSan
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8001:8001"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - khachsan-network
+
+  hotel-service:
+    build:
+      context: ./hotel-service
+      dockerfile: Dockerfile
+    container_name: khachsan-hotel-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/KhachSan
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8002:8002"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - khachsan-network
+
+  booking-service:
+    build:
+      context: ./booking-service
+      dockerfile: Dockerfile
+    container_name: khachsan-booking-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/KhachSan
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8003:8003"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - khachsan-network
+
+  payment-service:
+    build:
+      context: ./payment-service
+      dockerfile: Dockerfile
+    container_name: khachsan-payment-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/KhachSan
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8004:8004"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - khachsan-network
+
+  review-service:
+    build:
+      context: ./review-service
+      dockerfile: Dockerfile
+    container_name: khachsan-review-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/KhachSan
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8005:8005"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - khachsan-network
+
+volumes:
+  mysql-data:
+
+networks:
+  khachsan-network:
+    driver: bridge

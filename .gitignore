@@ -1,0 +1,47 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Maven
+target/
+.classpath
+.project
+.settings/
+*.class
+*.jar
+*.war
+
+# Spring Boot
+spring-boot-devtools.properties
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env
+.env.local
+
+# Node modules (if using frontend)
+node_modules/
+package-lock.json
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Build
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.temp

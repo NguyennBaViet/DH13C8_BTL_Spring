@@ -1,0 +1,417 @@
+{
+  "info": {
+    "name": "Khach San Microservices API",
+    "description": "Collection cac API endpoints cua he thong dat phong khach san",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"newuser@example.com\",\"password\":\"password123\",\"fullName\":\"New User\",\"phoneNumber\":\"0987654321\",\"address\":\"123 Main St\",\"city\":\"Ho Chi Minh\",\"country\":\"Vietnam\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"customer@example.com\",\"password\":\"password123\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"fullName\":\"Updated Name\",\"phoneNumber\":\"0123456789\",\"address\":\"456 New St\",\"city\":\"Da Nang\",\"country\":\"Vietnam\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/users/1/change-password?oldPassword=password123&newPassword=newpassword456",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "users", "1", "change-password"],
+              "query": [
+                {
+                  "key": "oldPassword",
+                  "value": "password123"
+                },
+                {
+                  "key": "newPassword",
+                  "value": "newpassword456"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hotels",
+      "item": [
+        {
+          "name": "Get All Hotels",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/hotels?page=0&size=10&city=Ho Chi Minh",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "hotels"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                },
+                {
+                  "key": "city",
+                  "value": "Ho Chi Minh"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Hotel by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/hotels/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "hotels", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "Get All Rooms",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/rooms?hotelId=1&roomType=DOUBLE",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "rooms"],
+              "query": [
+                {
+                  "key": "hotelId",
+                  "value": "1"
+                },
+                {
+                  "key": "roomType",
+                  "value": "DOUBLE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Room by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/rooms/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "rooms", "2"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"userId\":1,\"roomId\":2,\"checkInDate\":\"2024-01-20\",\"checkOutDate\":\"2024-01-22\",\"numberOfGuests\":2,\"guestName\":\"Nguyen Van A\",\"guestEmail\":\"guest@example.com\",\"guestPhone\":\"0987654321\",\"specialRequests\":\"Early check-in\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/bookings",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "bookings"]
+            }
+          }
+        },
+        {
+          "name": "Get Booking by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/bookings/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "bookings", "1"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Booking",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"cancellationReason\":\"Changed travel plans\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/bookings/1/cancel",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "bookings", "1", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Process Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"bookingId\":1,\"userId\":1,\"amount\":1600000,\"paymentMethod\":\"CREDIT_CARD\",\"transactionId\":\"TXN2024011500001\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/payments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "payments"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8000/api/payments/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "payments", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {accessToken}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"hotelId\":1,\"bookingId\":1,\"overallRating\":5,\"cleanlinessRating\":5,\"comfortRating\":4,\"serviceRating\":5,\"valueRating\":4,\"title\":\"Excellent hotel\",\"comment\":\"Great service and comfortable rooms!\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/reviews",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "reviews"]
+            }
+          }
+        },
+        {
+          "name": "Get Hotel Reviews",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8000/api/reviews/hotel/1?page=0&size=10",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8000",
+              "path": ["api", "reviews", "hotel", "1"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
